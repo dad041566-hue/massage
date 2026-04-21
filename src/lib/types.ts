@@ -89,17 +89,37 @@ export const REGIONS = [
   { code: 'seoul', label: '서울' },
   { code: 'gyeonggi', label: '경기' },
   { code: 'incheon', label: '인천' },
-  { code: 'busan', label: '부산' },
   { code: 'daejeon', label: '대전' },
   { code: 'daegu', label: '대구' },
   { code: 'gwangju', label: '광주' },
+  { code: 'busan', label: '부산' },
   { code: 'ulsan', label: '울산' },
+  { code: 'sejong', label: '세종' },
   { code: 'gangwon', label: '강원' },
-  { code: 'chungcheong', label: '충청' },
-  { code: 'gyeongsang', label: '경상' },
-  { code: 'jeolla', label: '전라' },
+  { code: 'chungbuk', label: '충북' },
+  { code: 'chungnam', label: '충남' },
+  { code: 'gyeongbuk', label: '경북' },
+  { code: 'gyeongnam', label: '경남' },
+  { code: 'jeonbuk', label: '전북' },
+  { code: 'jeonnam', label: '전남' },
   { code: 'jeju', label: '제주' },
 ] as const;
+
+// 신규 코드 → 기존 데이터 region 값 매핑
+export const REGION_MAP: Record<string, string> = {
+  chungbuk: 'chungcheong',
+  chungnam: 'chungcheong',
+  daejeon: 'chungcheong',
+  sejong: 'chungcheong',
+  gyeongbuk: 'gyeongsang',
+  gyeongnam: 'gyeongsang',
+  daegu: 'gyeongsang',
+  busan: 'gyeongsang',
+  ulsan: 'gyeongsang',
+  jeonbuk: 'jeolla',
+  jeonnam: 'jeolla',
+  gwangju: 'jeolla',
+};
 
 export const DISTRICTS: Record<string, { code: string; label: string }[]> = {
   seoul: [
@@ -241,6 +261,7 @@ export const DISTRICTS: Record<string, { code: string; label: string }[]> = {
     { code: 'gangneung', label: '강릉' },
     { code: 'sokcho', label: '속초' },
   ],
+  // 기존 묶음 키 (데이터 호환용 유지)
   chungcheong: [
     { code: 'all', label: '전체' },
     { code: 'cheonan', label: '천안' },
@@ -267,6 +288,49 @@ export const DISTRICTS: Record<string, { code: string; label: string }[]> = {
     { code: 'jeonju', label: '전주' },
     { code: 'iksan', label: '익산' },
     { code: 'gunsan', label: '군산' },
+    { code: 'yeosu', label: '여수' },
+    { code: 'suncheon', label: '순천' },
+    { code: 'mokpo', label: '목포' },
+  ],
+  // 신규 개별 코드 → 기존 묶음 districts 재사용
+  chungbuk: [
+    { code: 'all', label: '전체' },
+    { code: 'cheongju', label: '청주' },
+    { code: 'chungju', label: '충주' },
+  ],
+  chungnam: [
+    { code: 'all', label: '전체' },
+    { code: 'cheonan', label: '천안' },
+    { code: 'asan', label: '아산' },
+    { code: 'dangjin', label: '당진' },
+    { code: 'seosan', label: '서산' },
+  ],
+  sejong: [
+    { code: 'all', label: '전체' },
+    { code: 'sejong', label: '세종시' },
+  ],
+  gyeongbuk: [
+    { code: 'all', label: '전체' },
+    { code: 'pohang', label: '포항' },
+    { code: 'gumi', label: '구미' },
+    { code: 'gyeongsan', label: '경산' },
+    { code: 'gyeongju', label: '경주' },
+  ],
+  gyeongnam: [
+    { code: 'all', label: '전체' },
+    { code: 'changwon', label: '창원' },
+    { code: 'gimhae', label: '김해' },
+    { code: 'yangsan', label: '양산' },
+    { code: 'geoje', label: '거제' },
+  ],
+  jeonbuk: [
+    { code: 'all', label: '전체' },
+    { code: 'jeonju', label: '전주' },
+    { code: 'iksan', label: '익산' },
+    { code: 'gunsan', label: '군산' },
+  ],
+  jeonnam: [
+    { code: 'all', label: '전체' },
     { code: 'yeosu', label: '여수' },
     { code: 'suncheon', label: '순천' },
     { code: 'mokpo', label: '목포' },

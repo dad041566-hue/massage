@@ -1,15 +1,20 @@
 'use client';
 
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { REGIONS, THEMES, DISTRICTS } from '@/lib/types';
 import clsx from 'clsx';
 
 export default function Sidebar() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  
   const currentRegion = searchParams.get('region') ?? '';
   const currentSubRegion = searchParams.get('subRegion') ?? '';
   const currentTheme = searchParams.get('theme') ?? '';
+
+  // 기본 경로 결정 (/top100 이면 계속 /top100 유지, 그 외엔 /)
+  const baseUrl = pathname.startsWith('/top100') ? '/top100' : '/';
 
   return (
     <aside className="hidden md:block w-[180px] shrink-0">
@@ -29,7 +34,7 @@ export default function Sidebar() {
             {REGIONS.filter(r => r.code !== 'all').map(r => (
               <div key={r.code}>
                 <Link
-                  href={`/?region=${r.code}`}
+                  href={`${baseUrl}?region=${r.code}`}
                   className={clsx('lnb-menu-item', currentRegion === r.code && !currentSubRegion && 'active')}
                 >
                   &rsaquo; {r.label}
@@ -40,7 +45,7 @@ export default function Sidebar() {
                     {DISTRICTS[r.code].filter(d => d.code !== 'all').map(d => (
                       <Link
                         key={d.code}
-                        href={`/?region=${r.code}&subRegion=${d.code}`}
+                        href={`${baseUrl}?region=${r.code}&subRegion=${d.code}`}
                         className={clsx('block px-3 py-1.5 text-xs text-gray-500 hover:text-red-600 pl-6 border-b border-white/50 last:border-0', currentSubRegion === d.code && 'text-red-600 font-bold')}
                       >
                         - {d.label}
@@ -59,7 +64,7 @@ export default function Sidebar() {
             <span>🏆</span> 인기순위 (TOP 100)
           </div>
           <div>
-            <Link href="/?sort=popular" className="lnb-menu-item font-bold text-gray-700 hover:text-red-600">
+            <Link href="/top100" className={clsx('lnb-menu-item font-bold text-gray-700 hover:text-red-600', pathname === '/top100' && 'active')}>
               &rsaquo; 주간 인기 추천업소
             </Link>
             <Link href="/?sort=new" className="lnb-menu-item font-bold text-gray-700 hover:text-red-600">
@@ -77,7 +82,7 @@ export default function Sidebar() {
             {THEMES.filter(t => t.code !== 'all').map(t => (
               <Link
                 key={t.code}
-                href={`/?theme=${t.code}`}
+                href={`${baseUrl}?theme=${t.code}`}
                 className={clsx('lnb-menu-item', currentTheme === t.code && 'active')}
               >
                 &rsaquo; {t.label}

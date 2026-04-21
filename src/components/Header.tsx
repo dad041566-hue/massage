@@ -2,23 +2,26 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, Menu, X, User, ChevronDown } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { Search, Menu, X, ChevronDown } from 'lucide-react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { REGIONS, THEMES, DISTRICTS } from '@/lib/types';
 import clsx from 'clsx';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState('all');
   const searchParams = useSearchParams();
+  const router = useRouter();
   const currentRegion = searchParams.get('region');
   const currentSubRegion = searchParams.get('subRegion');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/?q=${encodeURIComponent(searchQuery)}`;
-    }
+    const params = new URLSearchParams();
+    if (selectedRegion !== 'all') params.set('region', selectedRegion);
+    if (searchQuery.trim()) params.set('q', searchQuery.trim());
+    router.push(`/?${params.toString()}`);
   };
 
   return (
@@ -42,17 +45,29 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* 검색 */}
-          <form onSubmit={handleSearch} className="flex-1 max-w-md mx-auto">
-            <div className="relative">
+          {/* ===== 검색: 지역 + 키워드 ===== */}
+          <form onSubmit={handleSearch} className="flex-1 max-w-xl mx-auto">
+            <div className="flex gap-0 border border-gray-300 rounded-lg overflow-hidden focus-within:border-red-500 focus-within:ring-1 focus-within:ring-red-500/30">
+              {/* 지역 선택 */}
+              <select
+                value={selectedRegion}
+                onChange={e => setSelectedRegion(e.target.value)}
+                className="shrink-0 pl-2.5 pr-1 py-2 text-sm bg-gray-50 border-r border-gray-200 text-gray-700 focus:outline-none"
+              >
+                <option value="all">전체지역</option>
+                {REGIONS.filter(r => r.code !== 'all').map(r => (
+                  <option key={r.code} value={r.code}>{r.label}</option>
+                ))}
+              </select>
+              {/* 키워드 입력 */}
               <input
                 type="text"
-                placeholder="지역, 업소명, 테마 검색"
+                placeholder="업소명, 테마 검색"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full pl-3 pr-9 py-2 rounded border border-gray-300 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500/30 bg-white"
+                className="flex-1 pl-3 pr-2 py-2 text-sm focus:outline-none bg-white min-w-0"
               />
-              <button type="submit" className="absolute right-0 top-0 h-full px-2.5 text-red-600">
+              <button type="submit" className="shrink-0 px-3 bg-red-600 text-white hover:bg-red-700 transition-colors">
                 <Search className="w-4 h-4" />
               </button>
             </div>
@@ -75,41 +90,21 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ===== 1. 상단 메인 네비게이션(GNB) 추가 ===== */}
+      {/* GNB */}
       <div className="hidden md:block bg-[#3b5998] border-t border-blue-800">
         <div className="max-w-[1400px] mx-auto px-3">
           <ul className="flex items-center text-white text-base font-bold">
-            <li>
-              <Link href="/?view=list" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">
-                지역별업소
-              </Link>
-            </li>
-            <li>
-              <Link href="/?view=theme" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">
-                테마별업소
-              </Link>
-            </li>
-            <li>
-              <Link href="/?sort=popular" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors text-yellow-100">
-                인기순위
-              </Link>
-            </li>
-            <li>
-              <Link href="/board" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">
-                커뮤니티
-              </Link>
-            </li>
-            <li>
-              <Link href="/board/qna" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">
-                고객센터
-              </Link>
-            </li>
+            <li><Link href="/?view=list" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">지역별업소</Link></li>
+            <li><Link href="/?view=theme" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">테마별업소</Link></li>
+            <li><Link href="/top100" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors text-yellow-100">인기순위</Link></li>
+            <li><Link href="/board" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">커뮤니티</Link></li>
+            <li><Link href="/board/qna" className="block px-6 py-3 hover:bg-blue-800 hover:text-yellow-300 transition-colors">고객센터</Link></li>
           </ul>
         </div>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-3">
-        {/* LNB 스타일 지역탭 (PC) */}
+        {/* 지역탭 (PC) */}
         <div className="hidden md:block">
           <nav className="flex items-center border-t border-gray-200 -mx-3 px-3 overflow-x-auto scrollbar-hide">
             {REGIONS.filter(r => r.code !== 'all').map(region => (
@@ -136,7 +131,7 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* 선택된 지역의 하위 지역구 그리드 */}
+          {/* 지역 하위 구 */}
           {currentRegion && DISTRICTS[currentRegion] && (
             <div className="bg-gray-50 border border-gray-200 p-3 mb-2 rounded grid grid-cols-8 gap-y-2 gap-x-2">
               {DISTRICTS[currentRegion].map(district => (
@@ -145,10 +140,10 @@ export default function Header() {
                   href={`/?region=${currentRegion}&subRegion=${district.code}`}
                   className={clsx(
                     "text-[13px] text-center rounded py-1",
-                    district.code === 'all' && (!currentSubRegion || currentSubRegion === 'all') 
+                    district.code === 'all' && (!currentSubRegion || currentSubRegion === 'all')
                       ? "bg-red-500 text-white font-bold"
-                      : currentSubRegion === district.code 
-                        ? "bg-red-500 text-white font-bold" 
+                      : currentSubRegion === district.code
+                        ? "bg-red-500 text-white font-bold"
                         : "text-gray-700 hover:bg-gray-200"
                   )}
                 >
@@ -163,29 +158,30 @@ export default function Header() {
       {/* 모바일 드롭다운 */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
-          <form onSubmit={handleSearch} className="p-3 border-b border-gray-100">
-            <input
-              type="text"
-              placeholder="검색..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 rounded border border-gray-300 text-sm focus:outline-none focus:border-red-500"
-            />
+          {/* 모바일 검색: 지역+키워드 */}
+          <form onSubmit={handleSearch} className="p-3 border-b border-gray-100 space-y-2">
+            <select
+              value={selectedRegion}
+              onChange={e => setSelectedRegion(e.target.value)}
+              className="w-full px-3 py-2 rounded border border-gray-300 text-sm focus:outline-none focus:border-red-500 bg-white"
+            >
+              <option value="all">전체지역</option>
+              {REGIONS.filter(r => r.code !== 'all').map(r => (
+                <option key={r.code} value={r.code}>{r.label}</option>
+              ))}
+            </select>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="업소명, 테마 검색"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="flex-1 px-3 py-2 rounded border border-gray-300 text-sm focus:outline-none focus:border-red-500"
+              />
+              <button type="submit" className="px-4 py-2 bg-red-600 text-white rounded text-sm font-bold">검색</button>
+            </div>
           </form>
           <div className="p-3">
-            <p className="text-xs text-gray-400 font-bold mb-2">지역별</p>
-            <div className="flex flex-wrap gap-1 mb-3">
-              {REGIONS.filter(r => r.code !== 'all').map(r => (
-                <Link
-                  key={r.code}
-                  href={`/?region=${r.code}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-2.5 py-1 rounded border border-gray-200 text-xs text-gray-700 hover:bg-red-50 hover:border-red-300 hover:text-red-600"
-                >
-                  {r.label}
-                </Link>
-              ))}
-            </div>
             <p className="text-xs text-gray-400 font-bold mb-2">테마별</p>
             <div className="flex flex-wrap gap-1 mb-3">
               {THEMES.filter(t => t.code !== 'all').map(t => (

@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Store, UserCircle, Briefcase, Phone, Mail, Lock } from 'lucide-react';
 
 export default function RegisterOwnerPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -25,7 +27,22 @@ export default function RegisterOwnerPage() {
     }
     // TODO: 실제 가입 API 호출
     console.log('가입 신청 데이터:', formData);
+
+    // 자동 로그인 처리 (localStorage 세션 저장)
+    localStorage.setItem('auth_user', JSON.stringify({
+      email: formData.email,
+      name: formData.name,
+      role: 'OWNER',
+      businessName: formData.businessName,
+      status: 'pending',
+    }));
+
     setIsSubmitted(true);
+
+    // 업체등록(업소관리) 페이지로 자동 이동
+    setTimeout(() => {
+      router.push('/admin/shops');
+    }, 1500);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,13 +59,16 @@ export default function RegisterOwnerPage() {
           <div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">입점 신청이 완료되었습니다</h2>
             <p className="text-gray-600">
-              관리자 승인 후 로그인 및 업소 등록이 가능합니다.<br />
-              (영업일 기준 1~2일 소요될 수 있습니다)
+              업체등록 페이지로 이동합니다...<br />
+              <span className="text-sm text-gray-400">(자동 이동 중)</span>
             </p>
           </div>
-          <Link href="/" className="inline-block w-full bg-gray-800 text-white font-bold py-3 rounded-lg hover:bg-gray-900 transition-colors">
-            메인으로 돌아가기
-          </Link>
+          <button
+            onClick={() => router.push('/admin/shops')}
+            className="inline-block w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700 transition-colors"
+          >
+            업체등록 바로가기
+          </button>
         </div>
       </div>
     );
@@ -138,7 +158,7 @@ export default function RegisterOwnerPage() {
           </div>
 
           <button type="submit" className="w-full bg-red-600 text-white font-bold py-3 rounded-lg mt-6 hover:bg-red-700 transition-colors">
-            입점 신청하기
+            회원가입 후 업체등록 진행
           </button>
         </form>
 

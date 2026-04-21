@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Store, Bell, MessageCircle, Settings,
-  LogOut, Crown, BarChart2, Users, Eye, Menu, X, ChevronRight, UserCheck
+  LogOut, Crown, BarChart2, Users, Eye, Menu, X, ChevronRight, UserCheck, MessageSquare
 } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { MOCK_USERS } from '@/lib/mockData';
@@ -14,14 +14,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
 
-  // Test toggle using useState to switch between ADMIN and OWNER easily
+  // localStorage auth_user 기반으로 초기 role 설정
   const [testRole, setTestRole] = useState<UserRole>('ADMIN');
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('auth_user');
+      if (stored) {
+        const user = JSON.parse(stored);
+        if (user.role === 'OWNER') setTestRole('OWNER');
+      }
+    } catch {}
+  }, []);
+
   const currentUser = testRole === 'ADMIN' ? MOCK_USERS[0] : MOCK_USERS[1]; 
 
   const ALL_NAV_ITEMS = [
     { href: '/admin', label: '대시보드', icon: LayoutDashboard, roles: ['ADMIN'] },
     { href: '/admin/approvals', label: '입점 승인 관리', icon: UserCheck, roles: ['ADMIN'] },
     { href: '/admin/shops', label: '업소 관리', icon: Store, roles: ['ADMIN', 'OWNER'] },
+    { href: '/admin/reviews', label: '후기 관리', icon: MessageSquare, roles: ['ADMIN', 'OWNER'] },
     { href: '/admin/premium', label: '프리미엄 배너', icon: Crown, roles: ['ADMIN'] },
     { href: '/admin/notice', label: '공지 관리', icon: Bell, roles: ['ADMIN'] },
     { href: '/admin/qna', label: 'Q&A 관리', icon: MessageCircle, roles: ['ADMIN', 'OWNER'] },
