@@ -51,7 +51,7 @@ export default function AdminShopsPage() {
         <h1 className="text-xl font-black text-gray-800 flex items-center gap-2">
           <Store className="w-5 h-5 text-red-600" /> {currentUser.role === 'ADMIN' ? '업소 목록 관리' : '내 업소 관리'}
         </h1>
-        {currentUser.role === 'ADMIN' && (
+        {(currentUser.role === 'ADMIN' || currentUser.role === 'OWNER') && (
           <Link href="/admin/shops/new"
             className="flex items-center gap-1 bg-red-600 text-white px-3 py-1.5 rounded text-sm font-bold hover:bg-red-700 transition-colors">
             <Plus className="w-4 h-4" /> 업소 등록

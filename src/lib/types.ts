@@ -29,6 +29,29 @@ export interface Shop {
   updatedAt: string;
 }
 
+// ===== 사이트 기본 설정 관련 타입 =====
+export interface SiteSettings {
+  siteName: string;          // 사이트 이름 (예: 힐링찾기)
+  siteTitle: string;         // 사이트 메인 제목 (SEO/헤더용)
+  siteDescription: string;   // 사이트 설명 (SEO/헤더용)
+  heroMainText: string;      // 홈 화면 메인 배너 강조 문구
+  heroSubText: string;       // 홈 화면 메인 배너 하단 문구
+  contactPhone: string;      // 사이트 공식 연락처
+  footerInfo: string;        // 푸터 하단 정보
+}
+
+// ===== 홈페이지 하단 SEO 문구 관리 타입 =====
+export interface HomeSeoContent {
+  section1Title: string;
+  section1Content: string;
+  section2Title: string;
+  section2Content: string;
+  section3Title: string;
+  section3Content: string;
+}
+
+
+
 export interface Course {
   name: string;
   duration: string;
@@ -81,6 +104,8 @@ export interface PartnershipInquiry {
   status: 'pending' | 'contacted' | 'completed';
   createdAt: string;
 }
+
+
 
 // ===== 사용자(User) =====
 export type UserRole = 'ADMIN' | 'OWNER' | 'USER';

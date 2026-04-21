@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Crown, Shuffle, RefreshCw, Star, MapPin, Phone, Search, LayoutGrid, List as ListIcon } from 'lucide-react';
-import { MOCK_SHOPS } from '@/lib/mockData';
+import { MOCK_SHOPS, MOCK_SITE_SETTINGS, MOCK_HOME_SEO } from '@/lib/mockData';
 import { shuffleRegularShops, filterShops, formatRating, sortShopsByPopularity } from '@/lib/utils';
 import { Shop, REGIONS, THEMES, DISTRICTS, REGION_MAP } from '@/lib/types';
 import ShopCard from '@/components/ShopCard';
@@ -72,11 +72,10 @@ function HomeContent() {
           <div className="bg-gradient-to-r from-red-600 to-rose-500 rounded-lg mb-4 p-4 flex items-center justify-between text-white">
             <div>
               <p className="font-black text-base">
-                🔥 {regionLabel} {subRegionLabel} 추천 업소
-                {themeLabel && ` · ${themeLabel}`}
+                {MOCK_SITE_SETTINGS.heroMainText}
               </p>
               <p className="text-sm text-white/80 mt-0.5">
-                전국 {MOCK_SHOPS.length}개+ 제휴업소 | 매일 업데이트
+                {MOCK_SITE_SETTINGS.heroSubText}
               </p>
             </div>
             <button
@@ -209,20 +208,19 @@ function HomeContent() {
 
           {/* ===== SEO 하단 텍스트 영역 ===== */}
           <div className="mt-6 bg-white border border-gray-200 rounded-lg p-5 seo-content">
-            <h1>힐링찾기 - 전국 마사지·힐링업소 디렉토리</h1>
-            <p>
-              힐링찾기는 전국 마사지·힐링 제휴업소를 지역별·테마별로 한눈에 비교할 수 있는 디렉토리 플랫폼입니다.
-              서울, 경기, 부산 등 전국 주요 도시의 검증된 업소를 소개합니다.
+            <h1 className="text-xl font-bold mb-3">{MOCK_HOME_SEO.section1Title}</h1>
+            <p className="text-gray-600 text-sm leading-relaxed mb-6">
+              {MOCK_HOME_SEO.section1Content}
             </p>
-            <h2>지역별 마사지 업소 찾기</h2>
-            <p>
-              강남, 홍대, 해운대 등 인기 지역부터 수원, 인천, 대전까지 다양한 지역의 업소를 손쉽게 검색하세요.
-              스웨디시, 아로마, 타이, 스포츠 마사지 등 테마별 필터로 원하는 업소를 빠르게 찾을 수 있습니다.
+            
+            <h2 className="text-lg font-bold mb-2">{MOCK_HOME_SEO.section2Title}</h2>
+            <p className="text-gray-600 text-sm leading-relaxed mb-6">
+              {MOCK_HOME_SEO.section2Content}
             </p>
-            <h2>프리미엄 추천업소</h2>
-            <p>
-              매일 업데이트되는 프리미엄 추천업소를 통해 최고 수준의 서비스를 경험하세요.
-              업소 상세 페이지에서 코스 정보, 요금표, 실제 방문 후기를 확인할 수 있습니다.
+            
+            <h2 className="text-lg font-bold mb-2">{MOCK_HOME_SEO.section3Title}</h2>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {MOCK_HOME_SEO.section3Content}
             </p>
           </div>
 

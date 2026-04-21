@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Search, Menu, X, ChevronDown } from 'lucide-react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { REGIONS, THEMES, DISTRICTS } from '@/lib/types';
+import { MOCK_SITE_SETTINGS } from '@/lib/mockData';
 import clsx from 'clsx';
 
 export default function Header() {
@@ -28,7 +29,7 @@ export default function Header() {
     <header className="bg-white border-b-2 border-red-600 shadow-sm sticky top-0 z-50">
       {/* 최상단 공지 바 */}
       <div className="bg-red-600 text-white text-center text-xs py-1 font-medium">
-        🎁 제휴업소 입점 문의 환영! &nbsp;|&nbsp; 프리미엄 배너 광고 진행중 &nbsp;|&nbsp; ☎ 1588-0000
+        🎁 제휴업소 입점 문의 환영! &nbsp;|&nbsp; 프리미엄 배너 광고 진행중 &nbsp;|&nbsp; ☎ {MOCK_SITE_SETTINGS.contactPhone}
       </div>
 
       {/* 메인 헤더 */}
@@ -37,11 +38,11 @@ export default function Header() {
           {/* 로고 */}
           <Link href="/" className="flex items-center gap-1.5 shrink-0">
             <div className="w-8 h-8 rounded bg-red-600 flex items-center justify-center">
-              <span className="text-white font-black text-sm">힐</span>
+              <span className="text-white font-black text-sm">{MOCK_SITE_SETTINGS.siteName[0]}</span>
             </div>
             <div className="hidden sm:block leading-tight">
-              <span className="text-red-600 font-black text-base">힐링찾기</span>
-              <span className="text-gray-400 text-[10px] block -mt-0.5">HEALING DIRECTORY</span>
+              <span className="text-red-600 font-black text-base">{MOCK_SITE_SETTINGS.siteName}</span>
+              <span className="text-gray-400 text-[10px] block -mt-0.5">{MOCK_SITE_SETTINGS.siteDescription}</span>
             </div>
           </Link>
 

@@ -41,7 +41,9 @@ export default function ShopEditPage({ params }: { params: Promise<{ id: string 
   const initialData = isNew ? {
     id: `shop-${Date.now()}`, slug: '', name: '', description: '', tagline: '', address: '', phone: '',
     hours: '', region: 'seoul', regionLabel: '서울', subRegion: '', subRegionLabel: '', theme: 'swedish', themeLabel: '스웨디시',
-    rating: 0, reviewCount: 0, isPremium: false, isVisible: currentUser.role === 'ADMIN',
+    rating: 0, reviewCount: 0, isPremium: false, 
+    isVisible: currentUser.role === 'ADMIN',
+    approvalStatus: currentUser.role === 'ADMIN' ? 'approved' : 'pending',
     courses: [], images: [], tags: [], ownerId: currentUser.id,
     thumbnailUrl: '', bannerUrl: '', createdAt: '', updatedAt: '',
   } : targetShop;
