@@ -1,4 +1,4 @@
-import { Shop, Review, Notice, QnA, User } from './types';
+import { Shop, Review, Notice, QnA, User, PartnershipInquiry } from './types';
 
 // ===== 모의 사용자 데이터 =====
 export let MOCK_USERS: User[] = [
@@ -372,4 +372,32 @@ export const MOCK_QNA: QnA[] = [
     isAnswered: false,
     createdAt: '2024-06-05',
   },
+];
+
+export const MOCK_PARTNERSHIPS: PartnershipInquiry[] = [
+  {
+    id: 'p-001',
+    shopName: '힐링 아로마 강남점',
+    region: 'seoul',
+    subRegion: 'gangnam',
+    theme: 'aroma',
+    contactName: '김철수',
+    phone: '010-1234-5678',
+    kakaoId: 'chulsoo_h',
+    message: '강남역 인근에 새로 오픈할 예정입니다. 프리미엄 배너 입점 비용 문의드립니다.',
+    status: 'pending',
+    createdAt: '2024-03-21T10:00:00Z'
+  },
+  {
+    id: 'p-002',
+    shopName: '스웨디시 하우스 분당',
+    region: 'gyeonggi',
+    subRegion: 'bundang',
+    theme: 'swedish',
+    contactName: '이영희',
+    phone: '010-9876-5432',
+    message: '기존 타 플랫폼 사용 중인데 이동 시 혜택이 있는지 궁금합니다.',
+    status: 'contacted',
+    createdAt: '2024-03-20T16:20:00Z'
+  }
 ];

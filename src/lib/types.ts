@@ -67,6 +67,21 @@ export interface QnA {
   createdAt: string;
 }
 
+// ===== 입점 문의(Partnership Inquiry) =====
+export interface PartnershipInquiry {
+  id: string;
+  shopName: string;
+  region: string;
+  subRegion: string;
+  theme: string;
+  contactName: string;
+  phone: string;
+  kakaoId?: string;
+  message: string;
+  status: 'pending' | 'contacted' | 'completed';
+  createdAt: string;
+}
+
 // ===== 사용자(User) =====
 export type UserRole = 'ADMIN' | 'OWNER' | 'USER';
 

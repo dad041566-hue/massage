@@ -111,7 +111,7 @@ export default function Sidebar() {
             <div className="inline-block bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded-full">바로가기 &gt;</div>
           </Link>
           
-          <Link href="/board/qna" className="block w-full bg-[#f8f9fa] text-gray-800 rounded p-3 text-center border-2 border-gray-300 hover:border-gray-400 hover:bg-white transition-all shadow-sm cursor-pointer hover:-translate-y-0.5 duration-200">
+          <Link href="/board/partnership" className="block w-full bg-[#f8f9fa] text-gray-800 rounded p-3 text-center border-2 border-gray-300 hover:border-gray-400 hover:bg-white transition-all shadow-sm cursor-pointer hover:-translate-y-0.5 duration-200">
             <div className="text-[10px] text-gray-500 mb-0.5">건마에반하다</div>
             <div className="font-black text-[15px] text-red-600 mb-1">입점 문의</div>
             <div className="inline-block bg-gray-800 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">모집중 &gt;</div>

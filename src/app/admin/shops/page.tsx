@@ -73,8 +73,9 @@ export default function AdminShopsPage() {
       </div>
 
       {/* 업소 목록 테이블 */}
-      <div className="bg-white border border-gray-200 rounded overflow-x-auto">
-        <table className="w-full text-sm text-left whitespace-nowrap">
+      <div className="bg-white border border-gray-200 rounded overflow-hidden table-wrap">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left whitespace-nowrap table-responsive">
           <thead className="bg-gray-50 border-b border-gray-200 text-xs text-gray-500">
             <tr>
               <th className="px-4 py-2 font-bold w-16 text-center">노출</th>
@@ -87,9 +88,9 @@ export default function AdminShopsPage() {
           </thead>
           <tbody className="divide-y divide-gray-100">
             {filtered.map(shop => (
-              <tr key={shop.id} className="hover:bg-gray-50">
+              <tr key={shop.id} className="hover:bg-gray-100 transition-colors">
                 {/* ON/OFF 토글 */}
-                <td className="px-4 py-2 text-center">
+                <td data-label="노출" className="px-4 py-2 text-center">
                   <button
                     onClick={() => toggleVisibility(shop.id)}
                     disabled={currentUser.role !== 'ADMIN'}
@@ -106,7 +107,7 @@ export default function AdminShopsPage() {
                     {shop.isVisible ? 'ON' : 'OFF'}
                   </span>
                 </td>
-                <td className="px-4 py-2 text-center">
+                <td data-label="AD" className="px-4 py-2 text-center">
                   <button
                     onClick={() => togglePremium(shop.id)}
                     disabled={currentUser.role !== 'ADMIN'}
@@ -120,17 +121,17 @@ export default function AdminShopsPage() {
                     <Crown className="w-3.5 h-3.5" />
                   </button>
                 </td>
-                <td className="px-4 py-2 font-bold text-gray-800">
+                <td data-label="업소명" className="px-4 py-2 font-bold text-gray-800">
                   <Link href={`/admin/shops/${shop.id}`} className="hover:text-red-600 hover:underline">{shop.name}</Link>
                   {!shop.isVisible && (
                     <span className="ml-2 text-[10px] bg-gray-200 text-gray-500 px-1 py-0.5 rounded">숨김</span>
                   )}
                 </td>
-                <td className="px-4 py-2 text-xs text-gray-500">
+                <td data-label="지역/테마" className="px-4 py-2 text-xs text-gray-500">
                   {shop.regionLabel} {shop.subRegionLabel ? `> ${shop.subRegionLabel}` : ''} / {shop.themeLabel}
                 </td>
-                <td className="px-4 py-2 text-xs text-gray-500">{shop.phone}</td>
-                <td className="px-4 py-2 text-center whitespace-nowrap">
+                <td data-label="연락처" className="px-4 py-2 text-xs text-gray-500">{shop.phone}</td>
+                <td data-label="관리" className="px-4 py-2 text-center whitespace-nowrap">
                   <button onClick={() => setEditId(shop.id)}
                     className="inline-flex items-center gap-1 px-2 py-1 bg-white hover:bg-red-50 border border-red-200 rounded text-xs text-red-600 font-bold shadow-sm">
                     <Edit2 className="w-3 h-3" /> 버튼 수정
@@ -146,6 +147,7 @@ export default function AdminShopsPage() {
         </table>
         {filtered.length === 0 && <div className="text-center py-6 text-gray-400 text-sm">목록이 없습니다.</div>}
       </div>
+    </div>
 
       {editId && (
         <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
@@ -170,4 +172,74 @@ export default function AdminShopsPage() {
       )}
     </div>
   );
+}
+
+// 모바일 대응 커스텀 CSS
+const styles = `
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table td {
+    word-break: keep-all;
+  }
+
+  @media (max-width: 768px) {
+    .table-responsive thead {
+      display: none;
+    }
+
+    .table-responsive,
+    .table-responsive tbody,
+    .table-responsive tr,
+    .table-responsive td {
+      display: block;
+      width: 100%;
+    }
+
+    .table-responsive tr {
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      border: 1px solid #f0f0f0;
+    }
+
+    .table-responsive td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 13px;
+      white-space: normal;
+      border-bottom: 1px solid #f9fafb;
+      text-align: right;
+    }
+
+    .table-responsive td:last-child {
+      border-bottom: none;
+    }
+
+    .table-responsive td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: #888;
+      width: 80px;
+      text-align: left;
+      flex-shrink: 0;
+    }
+  }
+`;
+
+// 컴포넌트에 주입
+if (typeof document !== 'undefined') {
+  const styleId = 'shop-admin-styles';
+  if (!document.getElementById(styleId)) {
+    const styleTag = document.createElement('style');
+    styleTag.id = styleId;
+    styleTag.innerHTML = styles;
+    document.head.appendChild(styleTag);
+  }
 }

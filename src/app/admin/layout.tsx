@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, Store, Bell, MessageCircle, Settings,
-  LogOut, Crown, BarChart2, Users, Eye, Menu, X, ChevronRight, UserCheck, MessageSquare
+  LogOut, Crown, BarChart2, Users, Eye, Menu, X, ChevronRight, UserCheck, MessageSquare, ClipboardList
 } from 'lucide-react';
 import { UserRole } from '@/lib/types';
 import { MOCK_USERS } from '@/lib/mockData';
@@ -32,6 +32,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const ALL_NAV_ITEMS = [
     { href: '/admin', label: '대시보드', icon: LayoutDashboard, roles: ['ADMIN'] },
     { href: '/admin/approvals', label: '입점 승인 관리', icon: UserCheck, roles: ['ADMIN'] },
+    { href: '/admin/partnerships', label: '입점 문의 관리', icon: ClipboardList, roles: ['ADMIN'] },
     { href: '/admin/shops', label: '업소 관리', icon: Store, roles: ['ADMIN', 'OWNER'] },
     { href: '/admin/reviews', label: '후기 관리', icon: MessageSquare, roles: ['ADMIN', 'OWNER'] },
     { href: '/admin/premium', label: '프리미엄 배너', icon: Crown, roles: ['ADMIN'] },
