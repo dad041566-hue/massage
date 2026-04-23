@@ -8,7 +8,7 @@ import { Store, UserCircle, Briefcase, Phone, Mail, Lock } from 'lucide-react';
 export default function RegisterOwnerPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: '',
+    id: '',
     password: '',
     passwordConfirm: '',
     name: '',
@@ -30,7 +30,7 @@ export default function RegisterOwnerPage() {
 
     // 자동 로그인 처리 (localStorage 세션 저장)
     localStorage.setItem('auth_user', JSON.stringify({
-      email: formData.email,
+      id: formData.id,
       name: formData.name,
       role: 'OWNER',
       businessName: formData.businessName,
@@ -87,12 +87,12 @@ export default function RegisterOwnerPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">이메일 (아이디)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">아이디</label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input type="email" name="email" required value={formData.email} onChange={handleChange}
+              <UserCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input type="text" name="id" required value={formData.id} onChange={handleChange}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:border-red-500 outline-none"
-                placeholder="admin@example.com" />
+                placeholder="아이디 입력" />
             </div>
           </div>
 

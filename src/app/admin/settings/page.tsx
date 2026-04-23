@@ -21,7 +21,7 @@ export default function AdminSettingsPage() {
     }, 800);
   };
 
-  const ipt = "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500/20 transition-all";
+  const ipt = "w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#D4A373] focus:ring-1 focus:ring-[#D4A373]/20 transition-all";
   const lbl = "flex items-center gap-1.5 text-xs font-bold text-gray-700 mb-1.5";
 
   return (
@@ -29,14 +29,14 @@ export default function AdminSettingsPage() {
       {/* 헤더 섹션 */}
       <div className="flex items-center justify-between sticky top-0 bg-gray-50/80 backdrop-blur-md py-4 z-20 border-b border-gray-200 -mx-4 px-4 sm:mx-0 sm:px-0">
         <h1 className="text-xl font-black text-gray-800 flex items-center gap-2">
-          <Settings className="w-5 h-5 text-red-600" /> 사이트 통합 관리 설정
+          <Settings className="w-5 h-5 text-[#D4A373]" /> 사이트 통합 관리 설정
         </h1>
         <button
           onClick={handleSave}
           disabled={isSaving}
           className={clsx(
             "flex items-center gap-1.5 px-6 py-2 rounded-lg text-sm font-bold transition-all shadow-md active:scale-95",
-            isSaving ? "bg-gray-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-700 text-white"
+            isSaving ? "bg-gray-400 cursor-not-allowed" : "bg-[#D4A373] hover:bg-[#C29262] text-white"
           )}
         >
           <Save className={clsx("w-4 h-4", isSaving && "animate-spin")} />
@@ -46,7 +46,7 @@ export default function AdminSettingsPage() {
 
       {/* ===== 섹션 1: 사이드 기본 모듈 설정 ===== */}
       <section className="space-y-6">
-        <div className="flex items-center gap-2 border-l-4 border-red-600 pl-3">
+        <div className="flex items-center gap-2 border-l-4 border-sky-600 pl-3">
           <Globe className="w-5 h-5 text-gray-800" />
           <h2 className="text-lg font-black text-gray-800">1. 사이트 기본 모듈 설정</h2>
         </div>
@@ -145,7 +145,7 @@ export default function AdminSettingsPage() {
 
       {/* ===== 섹션 2: 홈페이지 하단 SEO 문구 관리 ===== */}
       <section className="space-y-6">
-        <div className="flex items-center gap-2 border-l-4 border-blue-600 pl-3">
+        <div className="flex items-center gap-2 border-l-4 border-[#D4A373] pl-3">
           <Layout className="w-5 h-5 text-gray-800" />
           <h2 className="text-lg font-black text-gray-800">2. 홈페이지 하단 SEO 문구 관리</h2>
         </div>
@@ -153,7 +153,7 @@ export default function AdminSettingsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-              <span className="font-bold text-xs text-blue-600">첫 번째 블록</span>
+              <span className="font-bold text-xs text-[#D4A373]">첫 번째 블록</span>
               <Type className="w-3.5 h-3.5 text-gray-400" />
             </div>
             <div className="p-4 space-y-3">
@@ -164,7 +164,7 @@ export default function AdminSettingsPage() {
 
           <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex items-center justify-between">
-              <span className="font-bold text-xs text-blue-600">두 번째 블록</span>
+              <span className="font-bold text-xs text-[#D4A373]">두 번째 블록</span>
               <Type className="w-3.5 h-3.5 text-gray-400" />
             </div>
             <div className="p-4 space-y-3">
@@ -186,9 +186,9 @@ export default function AdminSettingsPage() {
         </div>
       </section>
 
-      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
-        <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-        <div className="text-xs text-blue-700 leading-relaxed">
+      <div className="bg-[#FEFAE0] border border-[#D4A373] border-opacity-20 rounded-xl p-4 flex gap-3">
+        <Info className="w-5 h-5 text-[#D4A373] shrink-0 mt-0.5" />
+        <div className="text-xs text-[#5F4B32] leading-relaxed">
           <p className="font-bold mb-1">관리 지침</p>
           <p>1번 섹션은 사이트 전체의 기본 레이아웃과 배너 문구에 영향을 주며, 2번 섹션은 홈 화면 최하단의 마케팅용 SEO 텍스트를 구성합니다. 모든 항목은 입력 즉시 시스템에 반영됩니다.</p>
         </div>

@@ -20,7 +20,14 @@ function HomeContent() {
 
   const [shuffledShops, setShuffledShops] = useState<Shop[]>([]);
   const [isShuffling, setIsShuffling] = useState(false);
-  const [viewMode, setViewMode] = useState<'card'|'list'>('card');
+  const viewParam = searchParams.get('view');
+  const [viewMode, setViewMode] = useState<'card'|'list'>(viewParam === 'list' ? 'list' : 'card');
+
+  useEffect(() => {
+    if (viewParam === 'card' || viewParam === 'list') {
+      setViewMode(viewParam);
+    }
+  }, [viewParam]);
 
   const doShuffle = () => {
     setIsShuffling(true);
@@ -69,7 +76,7 @@ function HomeContent() {
         <div className="flex-1 min-w-0">
 
           {/* 메인 배너 (1개) */}
-          <div className="bg-gradient-to-r from-red-600 to-rose-500 rounded-lg mb-4 p-4 flex items-center justify-between text-white">
+          <div className="bg-gradient-to-r from-[#A78B71] to-[#D4A373] rounded-lg mb-4 p-4 flex items-center justify-between text-white shadow-md">
             <div>
               <p className="font-black text-base">
                 {MOCK_SITE_SETTINGS.heroMainText}
@@ -90,10 +97,10 @@ function HomeContent() {
 
           {/* 모바일 필터 칩 */}
           <div className="md:hidden flex gap-1.5 overflow-x-auto pb-2 scrollbar-hide mb-3">
-            <Link href="/" className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border ${!searchParams.get('region') && !searchParams.get('theme') ? 'bg-red-600 text-white border-red-600' : 'border-gray-300 text-gray-600 bg-white'}`}>전체</Link>
+            <Link href="/" className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border ${!searchParams.get('region') && !searchParams.get('theme') ? 'bg-[#D4A373] text-white border-[#D4A373]' : 'border-gray-300 text-gray-600 bg-white'}`}>전체</Link>
             {REGIONS.filter(r => r.code !== 'all').map(r => (
               <Link key={r.code} href={`/?region=${r.code}`}
-                className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border ${selectedRegion === r.code ? 'bg-red-600 text-white border-red-600' : 'border-gray-300 text-gray-600 bg-white'}`}>{r.label}</Link>
+                className={`shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border ${selectedRegion === r.code ? 'bg-[#D4A373] text-white border-[#D4A373]' : 'border-gray-300 text-gray-600 bg-white'}`}>{r.label}</Link>
             ))}
           </div>
 
@@ -138,9 +145,9 @@ function HomeContent() {
                       </div>
                       <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 mb-2">
                         <span className="flex items-center gap-0.5">
-                          <MapPin className="w-3.5 h-3.5 text-red-500" />{shop.regionLabel}
+                          <MapPin className="w-3.5 h-3.5 text-[#D4A373]" />{shop.regionLabel}
                         </span>
-                        <span className="text-red-500 font-medium">#{shop.themeLabel}</span>
+                        <span className="text-[#D4A373] font-medium">#{shop.themeLabel}</span>
                       </div>
                       <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
                         <div className="flex gap-1.5 flex-wrap">
@@ -149,7 +156,7 @@ function HomeContent() {
                           ))}
                         </div>
                         {shop.courses[0] && (
-                          <span className="text-sm sm:text-base font-black text-red-600">{shop.courses[0].price}~</span>
+                          <span className="text-sm sm:text-base font-black text-[#D4A373]">{shop.courses[0].price}~</span>
                         )}
                       </div>
                     </div>
@@ -172,20 +179,20 @@ function HomeContent() {
               </div>
               <div className="flex items-center gap-2">
                 {sortType === 'popular' && (
-                  <Link href="/" className="text-[11px] text-red-600 font-bold hover:underline">정렬 초기화</Link>
+                  <Link href="/" className="text-[11px] text-[#D4A373] font-bold hover:underline">정렬 초기화</Link>
                 )}
                 <div className="flex bg-gray-100 rounded-lg p-0.5 mr-1 md:mr-2">
-                  <button onClick={() => setViewMode('card')} className={`p-1.5 rounded-md transition-colors ${viewMode === 'card' ? 'bg-white shadow-sm text-red-600' : 'text-gray-400 hover:text-gray-600'}`}>
+                  <button onClick={() => setViewMode('card')} className={`p-1.5 rounded-md transition-colors ${viewMode === 'card' ? 'bg-white shadow-sm text-[#D4A373]' : 'text-gray-400 hover:text-gray-600'}`}>
                     <LayoutGrid className="w-4 h-4" />
                   </button>
-                  <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-md transition-colors ${viewMode === 'list' ? 'bg-white shadow-sm text-red-600' : 'text-gray-400 hover:text-gray-600'}`}>
+                  <button onClick={() => setViewMode('list')} className={`p-1.5 rounded-md transition-colors ${viewMode === 'list' ? 'bg-white shadow-sm text-[#D4A373]' : 'text-gray-400 hover:text-gray-600'}`}>
                     <ListIcon className="w-4 h-4" />
                   </button>
                 </div>
                 <button
                   onClick={doShuffle}
                   disabled={isShuffling}
-                  className="flex items-center gap-1 text-xs text-gray-500 hover:text-red-600 transition-colors disabled:opacity-50 bg-gray-50 hover:bg-red-50 px-2 py-1 rounded border border-gray-200"
+                  className="flex items-center gap-1 text-xs text-gray-500 hover:text-[#D4A373] transition-colors disabled:opacity-50 bg-gray-50 hover:bg-[#FEFAE0] px-2 py-1 rounded border border-gray-200"
                 >
                   <Shuffle className={`w-3 h-3 ${isShuffling ? 'animate-spin' : ''}`} />
                   랜덤
@@ -241,11 +248,11 @@ function HomeContent() {
 
             <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden text-center flex flex-col divide-y divide-gray-100">
               <div className="bg-gray-100 py-1.5 text-[11px] font-bold text-gray-700">QUICK MENU</div>
-              <Link href="/?view=list" className="py-2 hover:bg-red-50 hover:text-red-600 transition-colors flex flex-col items-center gap-1 group">
+              <Link href="/?view=list" className="py-2 hover:bg-[#FEFAE0] hover:text-[#D4A373] transition-colors flex flex-col items-center gap-1 group">
                 <span className="text-xl group-hover:-translate-y-0.5 transition-transform">📋</span>
                 <span className="text-[10px] font-bold">전체업소</span>
               </Link>
-              <Link href="/?sort=popular" className="py-2 hover:bg-red-50 hover:text-red-600 transition-colors flex flex-col items-center gap-1 group">
+              <Link href="/?sort=popular" className="py-2 hover:bg-[#FEFAE0] hover:text-[#D4A373] transition-colors flex flex-col items-center gap-1 group">
                 <span className="text-xl group-hover:-translate-y-0.5 transition-transform">🏆</span>
                 <span className="text-[10px] font-bold">인기순위</span>
               </Link>

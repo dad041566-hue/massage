@@ -12,7 +12,7 @@ export default function AdminDashboard() {
   const summary = [
     { label: '전체 업소', value: MOCK_SHOPS.length, icon: Store, color: 'text-blue-600', bg: 'bg-blue-50' },
     { label: '프리미엄(AD)', value: MOCK_SHOPS.filter(s => s.isPremium).length, icon: Star, color: 'text-amber-500', bg: 'bg-amber-50' },
-    { label: '미답변 Q&A', value: pendingQnA, icon: MessageCircle, color: 'text-red-500', bg: 'bg-red-50' },
+    { label: '미답변 Q&A', value: pendingQnA, icon: MessageCircle, color: 'text-[#D4A373]', bg: 'bg-[#FEFAE0]' },
     { label: '오늘 페이지뷰', value: '1,247', icon: BarChart2, color: 'text-green-600', bg: 'bg-green-50' },
   ];
 
@@ -39,15 +39,15 @@ export default function AdminDashboard() {
         <div className="bg-white border border-gray-200 rounded p-4">
           <div className="flex items-center justify-between mb-3 border-b border-gray-100 pb-2">
             <h2 className="text-sm font-bold text-gray-800 flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4 text-red-500" /> 처리 필요 Q&amp;A
+              <AlertCircle className="w-4 h-4 text-[#D4A373]" /> 처리 필요 Q&amp;A
             </h2>
-            <Link href="/admin/qna" className="text-[10px] text-gray-400 hover:text-red-600">더보기</Link>
+            <Link href="/admin/qna" className="text-[10px] text-gray-400 hover:text-[#D4A373]">더보기</Link>
           </div>
           <div className="divide-y divide-gray-100">
             {MOCK_QNA.filter(q => !q.isAnswered).slice(0, 4).map(qna => (
               <div key={qna.id} className="py-2 flex justify-between items-center text-sm">
                 <span className="text-gray-700 truncate min-w-0 pr-3">{qna.question}</span>
-                <Link href="/admin/qna" className="shrink-0 text-[11px] px-2 py-1 bg-red-50 text-red-600 rounded">답변하기</Link>
+                <Link href="/admin/qna" className="shrink-0 text-[11px] px-2 py-1 bg-[#FEFAE0] text-[#D4A373] rounded">답변하기</Link>
               </div>
             ))}
             {pendingQnA === 0 && <p className="text-xs text-center py-4 text-gray-400">새로운 문의가 없습니다.</p>}

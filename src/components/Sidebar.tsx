@@ -21,7 +21,7 @@ export default function Sidebar() {
       <div className="sticky top-[110px] space-y-3">
         {/* 지역별 메뉴 */}
         <div className="bg-white border border-gray-200 rounded overflow-hidden">
-          <div className="bg-red-600 text-white text-xs font-bold px-3 py-2">
+          <div className="bg-[#D4A373] text-white text-xs font-bold px-3 py-2">
             📍 지역별 업소
           </div>
           <div>
@@ -46,7 +46,7 @@ export default function Sidebar() {
                       <Link
                         key={d.code}
                         href={`${baseUrl}?region=${r.code}&subRegion=${d.code}`}
-                        className={clsx('block px-3 py-1.5 text-xs text-gray-500 hover:text-red-600 pl-6 border-b border-white/50 last:border-0', currentSubRegion === d.code && 'text-red-600 font-bold')}
+                        className={clsx('block px-3 py-1.5 text-xs text-gray-500 hover:text-[#D4A373] pl-6 border-b border-white/50 last:border-0', currentSubRegion === d.code && 'text-[#D4A373] font-bold')}
                       >
                         - {d.label}
                       </Link>
@@ -64,10 +64,10 @@ export default function Sidebar() {
             <span>🏆</span> 인기순위 (TOP 100)
           </div>
           <div>
-            <Link href="/top100" className={clsx('lnb-menu-item font-bold text-gray-700 hover:text-red-600', pathname === '/top100' && 'active')}>
+            <Link href="/top100" className={clsx('lnb-menu-item font-bold text-gray-700 hover:text-[#D4A373]', pathname === '/top100' && 'active')}>
               &rsaquo; 주간 인기 추천업소
             </Link>
-            <Link href="/?sort=new" className="lnb-menu-item font-bold text-gray-700 hover:text-red-600">
+            <Link href="/?sort=new" className="lnb-menu-item font-bold text-gray-700 hover:text-[#D4A373]">
               &rsaquo; 신규 등록 업소
             </Link>
           </div>
@@ -112,8 +112,8 @@ export default function Sidebar() {
           </Link>
           
           <Link href="/board/partnership" className="block w-full bg-[#f8f9fa] text-gray-800 rounded p-3 text-center border-2 border-gray-300 hover:border-gray-400 hover:bg-white transition-all shadow-sm cursor-pointer hover:-translate-y-0.5 duration-200">
-            <div className="text-[10px] text-gray-500 mb-0.5">건마에반하다</div>
-            <div className="font-black text-[15px] text-red-600 mb-1">입점 문의</div>
+            <div className="text-[10px] text-gray-500 mb-0.5">힐링찾기</div>
+            <div className="font-black text-[15px] text-[#D4A373] mb-1">입점 문의</div>
             <div className="inline-block bg-gray-800 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">모집중 &gt;</div>
           </Link>
 

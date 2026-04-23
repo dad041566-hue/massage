@@ -62,7 +62,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         }`}
       >
         <div className="p-4 border-b border-gray-200 flex items-center gap-2">
-          <div className="w-6 h-6 rounded bg-red-600 flex items-center justify-center">
+          <div className="w-6 h-6 rounded bg-[#D4A373] flex items-center justify-center">
             <span className="text-white font-black text-xs">힐</span>
           </div>
           <span className="font-bold text-gray-800 text-sm">힐링 관리자</span>
@@ -77,7 +77,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 href={item.href}
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center gap-2 px-3 py-2 rounded text-sm mb-1 transition-colors ${
-                  isActive ? 'bg-red-50 text-red-600 font-bold' : 'text-gray-600 hover:bg-gray-100'
+                  isActive ? 'bg-[#FEFAE0] text-[#D4A373] font-bold' : 'text-gray-600 hover:bg-gray-100'
                 }`}
               >
                 <item.icon className="w-4 h-4" />
@@ -90,13 +90,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="p-3 border-t border-gray-200 space-y-1">
           <button 
             onClick={() => setTestRole(prev => prev === 'ADMIN' ? 'OWNER' : 'ADMIN')}
-            className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded mb-2 transition-colors">
+            className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-white bg-[#8B9A67] hover:bg-[#7A8956] rounded mb-2 transition-colors">
             <UserCheck className="w-4 h-4" /> [테스트용] {testRole === 'ADMIN' ? 'OWNER 접속' : 'ADMIN 접속'}
           </button>
           <Link href="/" className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded">
             <Eye className="w-4 h-4" /> 사이트 보기
           </Link>
-          <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-red-50 hover:text-red-600 rounded">
+          <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-[#FEFAE0] hover:text-[#D4A373] rounded">
             <LogOut className="w-4 h-4" /> 로그아웃
           </button>
         </div>

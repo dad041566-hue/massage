@@ -15,7 +15,7 @@ export default function GlobalLayout({ children }: { children: React.ReactNode }
 
   return (
     <>
-      <Suspense fallback={<div className="h-14 bg-white border-b-2 border-red-600"></div>}>
+      <Suspense fallback={<div className="h-14 bg-white border-b-2 border-[#D4A373]"></div>}>
         <Header />
       </Suspense>
       <main className="flex-1">{children}</main>

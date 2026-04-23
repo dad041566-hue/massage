@@ -17,8 +17,8 @@ const themeEmoji: Record<string, string> = {
 };
 
 const gradients = [
-  'from-rose-100 to-pink-50', 'from-purple-100 to-violet-50', 'from-blue-100 to-sky-50', 'from-emerald-100 to-teal-50',
-  'from-amber-100 to-yellow-50', 'from-cyan-100 to-blue-50', 'from-fuchsia-100 to-pink-50', 'from-lime-100 to-green-50',
+  'from-orange-100 to-amber-50', 'from-rose-100 to-pink-50', 'from-[#FEFAE0] to-white', 'from-yellow-100 to-amber-50',
+  'from-amber-100 to-orange-50', 'from-[#FEFAE0] to-[#FCF9F5]', 'from-peach-100 to-pink-50', 'from-lime-100 to-green-50',
 ];
 
 export default function ShopCard({ shop, variant = 'regular' }: ShopCardProps) {
@@ -45,12 +45,12 @@ export default function ShopCard({ shop, variant = 'regular' }: ShopCardProps) {
         </div>
         
         <div className="flex items-center gap-1 mb-2 text-xs text-gray-500">
-          <MapPin className="w-3 h-3 text-red-500 flex-shrink-0" />
+          <MapPin className="w-3 h-3 text-[#D4A373] flex-shrink-0" />
           <span className="truncate">{shop.regionLabel} {shop.subRegionLabel}</span>
         </div>
 
         <div className="flex gap-1 flex-wrap mb-2 line-clamp-1 h-[20px] overflow-hidden">
-          <span className="text-[10px] px-1.5 py-0.5 bg-red-50 text-red-500 rounded font-medium border border-red-100 shrink-0">#{shop.themeLabel}</span>
+          <span className="text-[10px] px-1.5 py-0.5 bg-[#FEFAE0] text-[#D4A373] rounded font-medium border border-[#D4A373] border-opacity-20 shrink-0">#{shop.themeLabel}</span>
           {shop.tags.slice(0, 2).map((tag, i) => (
             <span key={i} className="text-[10px] px-1.5 py-0.5 bg-gray-50 text-gray-500 rounded shrink-0 border border-gray-100">{tag}</span>
           ))}
@@ -62,7 +62,7 @@ export default function ShopCard({ shop, variant = 'regular' }: ShopCardProps) {
             <span className="font-bold text-gray-700">{formatRating(shop.rating)}</span>
           </div>
           {shop.courses[0] && (
-            <span className="text-xs font-bold text-red-600">{shop.courses[0].price}~</span>
+            <span className="text-xs font-bold text-[#D4A373]">{shop.courses[0].price}~</span>
           )}
         </div>
       </div>
